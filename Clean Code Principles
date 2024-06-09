@@ -1,0 +1,444 @@
+Certainly! Here is a refined version of the text with proper references for uploading to GitHub:
+
+---
+
+# 13 Clean Code Principles Explained with Examples
+
+**Author: Peng Cao**
+
+## 1. Don’t Repeat Yourself (DRY)
+This principle suggests that code should not have unnecessary duplication. Instead, it should be organized in a way that avoids redundancy and makes it easy to maintain. For example, instead of writing the same calculation in multiple places in the code, create a function that performs the calculation and call that function from the different places where the calculation is needed.
+
+**Bad Example:**
+```javascript
+let total = 0;
+for (let i = 0; i < prices.length; i++) {
+  total += prices[i];
+}
+console.log(total);
+for (let i = 0; i < prices.length; i++) {
+  total += prices[i];
+}
+console.log(total);
+```
+
+**Good Example:**
+```javascript
+function calculateTotal(prices) {
+  let total = 0;
+  for (let i = 0; i < prices.length; i++) {
+    total += prices[i];
+  }
+  return total;
+}
+console.log(calculateTotal(prices));
+console.log(calculateTotal(prices));
+```
+
+## 2. Write Everything Twice (WET)
+This is an opposite principle of DRY. It suggests that if you find yourself copy-pasting code multiple times, anticipating the identical code forking in different directions later on, having WET code may make that future change easier.
+
+**Example:**
+```javascript
+class Dog {
+  name = "Dog";
+  move() {
+    console.log("Dog is moving");
+    // future implementation
+    // console.log("Dog is trotting");
+  }
+}
+
+class Cat {
+  name = "Cat";
+  move() {
+    console.log("Cat is moving");
+    // future implementation
+    // console.log("Cat is sneaking");
+  }
+}
+```
+
+## 3. Single Responsibility Principle (SRP)
+Each module or function should have only one reason to change. For example, instead of having a function that handles multiple tasks, split it up into multiple functions, each with a single responsibility.
+
+**Bad Example:**
+```javascript
+function processData(data) {
+  // validate data
+  // save data to database
+  // send data to another system
+  // log data
+}
+```
+
+**Good Example:**
+```javascript
+function validateData(data) {
+  // validate data
+}
+function saveData(data) {
+  // save data to database
+}
+function sendData(data) {
+  // send data to another system
+}
+function logData(data) {
+  // log data
+}
+```
+
+## 4. Open/Closed Principle (OCP)
+A module or function should be open for extension but closed for modification. For example, instead of modifying an existing class to add new functionality, create a new class that extends the original class and add the new functionality there.
+
+**Bad Example:**
+```javascript
+class Rectangle {
+  constructor(width, height) {
+    this.width = width;
+    this.height = height;
+  }
+  setWidth(width) {
+    this.width = width;
+  }
+  setHeight(height) {
+    this.height = height;
+  }
+  getArea() {
+    return this.width * this.height;
+  }
+  getPerimeter() {
+    return 2 * (this.width + this.height);
+  }
+}
+```
+
+**Good Example:**
+```javascript
+class Rectangle {
+  constructor(width, height) {
+    this.width = width;
+    this.height = height;
+  }
+  setWidth(width) {
+    this.width = width;
+  }
+  setHeight(height) {
+    this.height = height;
+  }
+  getArea() {
+    return this.width * this.height;
+  }
+}
+class RectangleWithPerimeter extends Rectangle {
+  getPerimeter() {
+    return 2 * (this.width + this.height);
+  }
+}
+```
+
+## 5. Liskov Substitution Principle (LSP)
+Objects of a superclass should be able to be replaced with objects of a subclass without altering the correctness of the program. For example, a subclass should be able to replace its parent class without breaking the program.
+
+**Example:**
+```javascript
+class Bird {
+  fly() {
+    console.log("I am flying");
+  }
+}
+
+class Ostrich extends Bird {
+  fly() {
+    throw "I can't fly";
+  }
+}
+
+let bird = new Bird();
+bird.fly(); // Output: "I am flying"
+
+let ostrich = new Ostrich();
+ostrich.fly(); // Output: "I can't fly"
+
+let birds = [new Bird(), new Ostrich()];
+for (let bird of birds) {
+  bird.fly();
+}
+// Output: "I am flying" "I can't fly"
+```
+
+## 6. Interface Segregation Principle (ISP)
+A client should not be forced to implement interfaces it doesn’t use. For example, instead of having a monolithic interface with many methods, split it up into smaller, more specific interfaces.
+
+**Bad Example:**
+```typescript
+interface Shape {
+  draw();
+  resize();
+  rotate();
+  getArea();
+}
+
+class Circle implements Shape {
+  draw() {...}
+  resize() {...}
+  rotate() {...}
+  getArea() {...}
+}
+```
+
+**Good Example:**
+```typescript
+interface Drawable {
+  draw();
+}
+interface Resizable {
+  resize();
+}
+interface Rotatable {
+  rotate();
+}
+interface Measurable {
+  getArea();
+}
+
+class Circle implements Drawable, Resizable, Rotatable, Measurable {
+  draw() {...}
+  resize() {...}
+  rotate() {...}
+  getArea() {...}
+}
+```
+
+## 7. Dependency Inversion Principle (DIP)
+High-level modules should not depend on low-level modules. Both should depend on abstractions. For example, instead of having a high-level module depend on a specific implementation of a low-level module, have it depend on an abstraction of the low-level module.
+
+**Bad Example:**
+```javascript
+class UserController {
+  constructor() {
+    this.userRepository = new MySQLUserRepository();
+  }
+  ...
+}
+```
+
+**Good Example:**
+```javascript
+class UserController {
+  constructor(userRepository) {
+    this.userRepository = userRepository;
+  }
+  ...
+}
+
+let mysqlUserRepository = new MySQLUserRepository();
+let userController = new UserController(mysqlUserRepository);
+```
+
+## 8. Keep It Simple, Stupid (KISS)
+This principle suggests that code should be as simple as possible and should avoid unnecessary complexity. For example, instead of using a complex algorithm to solve a problem, use a simpler one that gets the job done.
+
+**Bad Example:**
+```javascript
+function calculateDistance(point1, point2) {
+  let xDiff = point2.x - point1.x;
+  let yDiff = point2.y - point1.y;
+  let distance = Math.sqrt((xDiff ** 2) + (yDiff ** 2));
+  return distance;
+}
+```
+
+**Good Example:**
+```javascript
+function calculateDistance(point1, point2) {
+  let xDiff = point2.x - point1.x;
+  let yDiff = point2.y - point1.y;
+  return Math.abs(xDiff) + Math.abs(yDiff);
+}
+```
+
+## 9. You Aren’t Gonna Need It (YAGNI)
+This principle suggests that code should not be written until it is actually needed, as it can add unnecessary complexity and make the code harder to maintain. For example, instead of adding a feature that may be needed in the future, focus on the features that are needed now.
+
+**Bad Example:**
+```javascript
+class Order {
+  constructor() {
+    this.items = [];
+    this.discount = null;
+  }
+}
+```
+
+**Good Example:**
+```javascript
+class Order {
+  constructor() {
+    this.items = [];
+  }
+}
+```
+
+## 10. Fail Fast
+This principle suggests that code should fail as early as possible, so that issues can be identified and resolved quickly. For example, instead of waiting until the end of a function to check for errors, check for errors as soon as possible.
+
+**Bad Example:**
+```javascript
+function divide(a, b) {
+  let result = a / b;
+  return result;
+}
+console.log(divide(1, 0)); // Output: Infinity
+```
+
+**Good Example:**
+```javascript
+function divide(a, b) {
+  if (b === 0) {
+    throw new Error("Cannot divide by zero");
+  }
+  let result = a / b;
+  return result;
+}
+console.log(divide(1, 0)); // Output: Error: Cannot divide by zero
+```
+
+## 11. Law of Demeter (LoD)
+This principle suggests that an object should only communicate with its immediate neighbors and should not reach into the internal state of other objects. For example, instead of accessing the internal state of an object, use a method to get the information you need.
+
+**Bad Example:**
+```javascript
+class Order {
+  constructor() {
+    this.items = [];
+  }
+}
+
+class OrderItem {
+  constructor(name, price) {
+    this.name = name;
+    this.price = price;
+  }
+}
+
+let order = new Order();
+let item1 = new OrderItem("item1", 10);
+let item2 = new OrderItem("item2", 20);
+order.items.push(item1);
+order.items.push(item2);
+let total = 0;
+for (let item of order.items) {
+  total += item.price;
+}
+console.log(total);
+```
+
+**Good Example:**
+```javascript
+class Order {
+  constructor() {
+    this.items = [];
+  }
+  addItem(item) {
+    this.items.push(item);
+  }
+  getTotal() {
+    let total = 0;
+    for (let item of this.items
+
+) {
+      total += item.price;
+    }
+    return total;
+  }
+}
+
+class OrderItem {
+  constructor(name, price) {
+    this.name = name;
+    this.price = price;
+  }
+}
+
+let order = new Order();
+let item1 = new OrderItem("item1", 10);
+let item2 = new OrderItem("item2", 20);
+order.addItem(item1);
+order.addItem(item2);
+console.log(order.getTotal());
+```
+
+## 12. Composition Over Inheritance
+This principle suggests that code should prefer composition over inheritance, as it can lead to more flexible and maintainable code. For example, instead of using inheritance to add functionality to a class, use composition to add the functionality.
+
+**Bad Example:**
+```javascript
+class Animal {
+  move() {
+    console.log("I am moving");
+  }
+}
+
+class Bird extends Animal {
+  fly() {
+    console.log("I am flying");
+  }
+}
+
+let bird = new Bird();
+bird.move(); // Output: "I am moving"
+bird.fly(); // Output: "I am flying"
+```
+
+**Good Example:**
+```javascript
+class Animal {
+  move() {
+    console.log("I am moving");
+  }
+}
+
+class Bird {
+  constructor(animal) {
+    this.animal = animal;
+  }
+  fly() {
+    console.log("I am flying");
+  }
+}
+
+let animal = new Animal();
+let bird = new Bird(animal);
+bird.animal.move(); // Output: "I am moving"
+bird.fly(); // Output: "I am flying"
+```
+
+## 13. Code Smells
+This principle suggests that code should be written in a way that avoids common patterns that can lead to problems. For example, instead of writing code that is difficult to read and understand, write code that is clear and easy to follow.
+
+**Bad Example:**
+```javascript
+function process(data) {
+  if (data.length > 0) {
+    for (let i = 0; i < data.length; i++) {
+      if (data[i] > 0) {
+        // do something
+      }
+    }
+  }
+}
+```
+
+**Good Example:**
+```javascript
+function process(data) {
+  if (data.length === 0) {
+    return;
+  }
+  data.forEach(item => {
+    if (item > 0) {
+      // do something
+    }
+  });
+}
