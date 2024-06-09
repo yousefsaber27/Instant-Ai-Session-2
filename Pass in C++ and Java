@@ -1,0 +1,56 @@
+In C++ and Java, the equivalent to the `pass` statement in Python, which is used to indicate that nothing happens, is an empty statement. Below, I'll provide examples for both languages showing how to use an empty statement.
+
+### C++
+
+In C++, an empty statement is represented by a semicolon (`;`). Here's an example demonstrating its use in a function and a loop:
+
+```cpp
+#include <iostream>
+
+void exampleFunction() {
+    // Equivalent to Python's `pass`
+    ;
+}
+
+int main() {
+    // Example usage in a loop
+    for (int i = 0; i < 5; ++i) {
+        // Equivalent to Python's `pass`
+        ;
+    }
+    std::cout << "Completed empty statements in C++" << std::endl;
+    return 0;
+}
+```
+
+### Java
+
+In Java, an empty statement is also represented by a semicolon (`;`). Here's an example demonstrating its use in a method and a loop:
+
+```java
+public class EmptyStatementExample {
+
+    public static void exampleMethod() {
+        // Equivalent to Python's `pass`
+        ;
+    }
+
+    public static void main(String[] args) {
+        // Example usage in a loop
+        for (int i = 0; i < 5; i++) {
+            // Equivalent to Python's `pass`
+            ;
+        }
+        System.out.println("Completed empty statements in Java");
+    }
+}
+```
+
+### Explanation
+
+- **C++**: In the `exampleFunction` and the `for` loop, a semicolon is used to indicate that no action is performed, similar to Python's `pass`.
+- **Java**: In the `exampleMethod` and the `for` loop, a semicolon serves the same purpose, indicating that no operation is carried out.
+
+### Summary
+
+In both C++ and Java, an empty statement (semicolons `;`) serves as a placeholder where the language syntax requires a statement but no action is desired. This is functionally equivalent to Python's `pass` statement.
